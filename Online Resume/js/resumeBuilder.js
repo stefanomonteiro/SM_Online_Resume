@@ -47,9 +47,9 @@ bio.display = function(){
         var formattedBioPic = HTMLbioPic.replace("%data%", bio.bioPic);
 
         $("#header").prepend(formattedName, formattedRole);
-        $("#header").append("<div id='pic-message'></div>");
+        $("#header").append("<div id='pic-message'></div>");  /// check this
         $("#pic-message").append(formattedBioPic, formattedMessage);
-        $("#pic-message").css("margin-bottom", 25).css("margin-top", 20);
+        $("#pic-message").css("margin-bottom", 25).css("margin-top", 20); //// manke one .css
         $("#topContacts").append(formattedMobile, formattedEmail, formattedGithub, formattedTwitter, formattedLocation);
 
             //Skils
@@ -290,19 +290,52 @@ $("#mapDiv").append(googleMap);
             var formattedNavbarProjects = HTMLnavbarEachItem.replace("%data%", navBar.Three).replace("#", "#projects");
             var formattedNavbarEducation = HTMLnavbarEachItem.replace("%data%", navBar.Four).replace("#", "#education");
             var formattedNavbarMap = HTMLnavbarEachItem.replace("%data%", navBar.Five).replace("#", "#mapDiv");
-            var formattedcontactMe = HTMLnavbarEachItem.replace("%data%", navBar.Six).replace("#", "#lets-connect");
+          //  var formattedcontactMe = HTMLnavbarEachItem.replace("%data%", navBar.Six).replace("#", "#lets-connect");
+
+            var formattedNavbarDropdownLink = HTMLnavbarDropdownLink.replace("%data%", navBar.Six).replace("#", "#lets-connect");
+            var formattedNnavbarDropDownItemMobile = HTMLnavbarDropDownItem.replace("%data%", "mobile");
+            var formattedNnavbarDropDownItemEmail = HTMLnavbarDropDownItem.replace("%data%", "email");
 
         $("#main").prepend(HTMLnavbarTags);
         $("nav").append(HTMLnavbarDiv);
         $("div.container").append(HTMLnavbarButton, formattedBrand, HTMLnavbarLScreen);
         $("#navbarNavAltMarkup").append(HTMLnavbarItems);
-        $(".navbar-nav").append(formattedNavbarBio, formattedNavbarWork, formattedNavbarProjects, formattedNavbarEducation, formattedNavbarMap, formattedcontactMe);
+        $(".navbar-nav").append(formattedNavbarBio, formattedNavbarWork, formattedNavbarProjects, formattedNavbarEducation, formattedNavbarMap, HTMLnavbarDropdown);
+        $(".dropdown").append(formattedNavbarDropdownLink, HTMLnavbarDropdownMenu);
+        $(".dropdown-menu").append(formattedNnavbarDropDownItemMobile, formattedNnavbarDropDownItemEmail);
+
+            //NavBar DropDown Link
+
+
+
+
+/*
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Dropdown link
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+        </li>
+*/
+
+
 
             // Adjusting NavBar Positioning
 
 
+            $(HTMLnavbarAnchor).insertBefore("#name, #workExperience, #projects, #education, #mapDiv");
 
-
+                  //  var formattedNavbarAnchor = HTMLnavbarAnchor.replace("#", navBar[i]);
+/*
+                    $("a.anchor").attr("id", function(){
+                        for (var i = 0; i < 5; i++){
+                            return  navBar[i];
+                    };
+*/
 
     // Role
         $("#header").children("span").first().addClass("role");
@@ -315,40 +348,136 @@ $("#mapDiv").append(googleMap);
     // Contacts
 
 
-        // Adding glyphicon
+        // Adding icons
 
-        var glyphicon = {
-            "mobile": "glyphicon glyphicon-phone",
-            "email": "glyphicon glyphicon-send",
-            "github": "glyphicon glyphicon-folder-open",
-            "twitter": "glyphicon glyphicon-export",
-            "location": "glyphicon glyphicon-map-marker"
+        var icon = {
+            "mobile": "fa fa-phone",
+            "email": "fa fa-envelope",
+            "github": "fa fa-github",
+            "twitter": "fa fa-twitter",
+            "location": "fa fa-globe"
         };
 
-        glyphicon.display = function(){
-            //    for (var i = 0; i < glyphicon.length; i++ ){
+            icon.display = function(){
 
-                 $("li.flex-item").prepend("<span aria-hidden=\"true\"></span>").children().addClass("glyphicon glyphicon-phone");
-              //  }
-            };
 
-            glyphicon.display();
+                $("ul#topContacts li.flex-item").prepend("<i aria-hidden=\"true\"></i>");
+                $("ul#topContacts li.flex-item i").each(function(){
+                     $(this).css("color", "#f5a623");
+
+                     for (var i = 0; i < icon.length; i++){
+                        $("ul#topContacts li.flex-item i").addClass(icon[i]);
+                     }
+
+                });
+
+
+
+
+          };
+            icon.display();
+
+//works // $("ul#topContacts li.flex-item").prepend("<span aria-hidden=\"true\"></span>").children().first().html('&#9743').css("color", "#f5a623");
 
 
     // Adjusting Padding and Spacing Elements
 
         $("#workExperience, #education, #projects, #mapDiv").css("padding-top", "3%");
         $(".education-entry, .work-entry, .project-entry").css("padding", "2% 5%");
-  /*      $("#header").css("padding", function(){
-            if ($(window).width() <= 1200px){
-               return "6%";
-            }
+
+
+
+                function setPadding() {         ///Download correct padding-top when open the page
+
+                  if ($(window).width() > 1200) {
+                    $("#header").css("padding-top", "6%");
+                  } else if ($(window).width() > 900) {
+                    $("#header").css("padding-top", "8%");
+                  } else if ($(window).width() > 650) {
+                    $("#header").css("padding-top", "10%");
+                  } else if ($(window).width() > 550) {
+                    $("#header").css("padding-top", "12%");
+                  } else if ($(window).width() > 450) {
+                    $("#header").css("padding-top", "14%");
+                  } else {
+                    $("#header").css("padding-top", "20%");
+                  }
+                }
+
+                setPadding();
+
+                $(window).resize(function() {   /// Download correct padding-top when screen is resized
+                    setPadding();
+                })
+
+
+
+
+
+          /*  $(window).width(function(){
+
+                 if ($(window).width() > 1200 || $(window).width() < 1200 ){
+
+                    $("#header").css("padding-top", "6%");
+
+               }else if($(window).width() > 900 ){
+
+                    $("#header").css("padding-top", "8%");
+
+               }else if($(window).width() > 650){
+
+                    $("#header").css("padding-top", "10%");
+
+               }else if($(window).width() > 550){
+
+                    $("#header").css("padding-top", "12%");
+
+               }else if($(window).width() > 450){
+
+                    $("#header").css("padding-top", "14%");
+
+               }else{
+
+                    $("#header").css("padding-top", "20%");
+
+               }
+
         });
 
-/*
-        1200 6%
-        900 8%
-        650 10%
-        550 12%
-        450 14%
+            $(window).resize(function(){
+
+                 if ($(window).width() > 1200 ){
+
+                    $("#header").css("padding-top", "6%");
+
+               }else if($(window).width() > 900 ){
+
+                    $("#header").css("padding-top", "8%");
+
+               }else if($(window).width() > 650){
+
+                    $("#header").css("padding-top", "10%");
+
+               }else if($(window).width() > 550){
+
+                    $("#header").css("padding-top", "12%");
+
+               }else if($(window).width() > 450){
+
+                    $("#header").css("padding-top", "14%");
+
+               }else{
+
+                    $("#header").css("padding-top", "20%");
+
+               }
+
+        });
+
 */
+
+
+
+
+
+

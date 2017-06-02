@@ -64,9 +64,13 @@ var HTMLnavbarTags = '<nav class="navbar navbar-toggleable-md navbar-light orang
 var HTMLnavbarButton = '<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>';
 var HTMLnavbarBrand = '<a class="navbar-brand" href="#">%data%</a>';
 var HTMLnavbarLScreen = '<div class="collapse navbar-collapse" id="navbarNavAltMarkup"></div>'
-var HTMLnavbarItems = '<div class="navbar-nav"></div>';
-var HTMLnavbarEachItem = '<a class="nav-item nav-link" href="#">%data%</a>';
-
+var HTMLnavbarItems = '<ul class="navbar-nav"></ul>';
+var HTMLnavbarEachItem = '<li class="nav-item"> <a class="nav-link" href="#">%data%</a></li>';
+var HTMLnavbarDropdown = '<li class="nav-item dropdown"></li>';
+var HTMLnavbarDropdownLink = '<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">%data%</a>';
+var HTMLnavbarDropdownMenu = '<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink"></div>';
+var HTMLnavbarDropDownItem = '<a class="dropdown-item" href="#">%data%</a>';
+var HTMLnavbarAnchor = '<a class="anchor"></a>';
 
 
 /*
