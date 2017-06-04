@@ -49,7 +49,7 @@ bio.display = function(){
         $("#header").prepend(formattedName, formattedRole);
         $("#header").append("<div id='pic-message'></div>");  /// check this
         $("#pic-message").append(formattedBioPic, formattedMessage);
-        $("#pic-message").css("margin-bottom", 25).css("margin-top", 20); //// manke one .css
+        $("#pic-message").css({"margin-bottom": 25, "margin-top": 20}); //// manke one .css
         $("#topContacts").append(formattedMobile, formattedEmail, formattedGithub, formattedTwitter, formattedLocation);
 
             //Skils
@@ -98,13 +98,13 @@ var education = {
             "title": "Front-End Web Developer Nanodegree",
             "school": "Udacity",
             "date": "May 2017",
-            "link": "www.udacity.com"
+            "link": "http://www.udacity.com"
         },
         {
             "title": "Front End Web Development Certification",
             "school": "FreeCodeCamp",
             "date": "May 2017",
-            "link": "www.freecodecamp.com"
+            "link": "http://www.freecodecamp.com"
         }
 
     ]
@@ -118,7 +118,7 @@ education.display = function(){
             $("#education").append(HTMLschoolStart);
 
 
-        var formattedschoolName = HTMLschoolName.replace("%data%", education.schools[i].name);
+        var formattedschoolName = HTMLschoolName.replace("%data%", education.schools[i].name).replace("#", education.schools[i].url);
         var formattedLocation = HTMLschoolLocation.replace("%data%", education.schools[i].location);
         var formattedDegree = HTMLschoolDegree.replace("%data%", education.schools[i].degree);
         var formattedDates = HTMLschoolDates.replace("%data%", education.schools[i].dates);
@@ -127,7 +127,7 @@ education.display = function(){
 
 
         $(".education-entry:last").append(formattedschoolName + formattedDegree);
-        $(".education-entry:last").append(formattedLocation, formattedDates, formattedMajors, formattedUrl);
+        $(".education-entry:last").append(formattedLocation, formattedDates, formattedMajors);
     };
 
             $("#education").append(HTMLonlineClasses);
@@ -137,10 +137,10 @@ education.display = function(){
 
             $("#education").append(HTMLschoolStart);
 
-        var formattedOnlineTitle = HTMLonlineTitle.replace("%data%", education.onlineCourses[i].title);
+        var formattedOnlineTitle = HTMLonlineTitle.replace("%data%", education.onlineCourses[i].title).replace("#", education.onlineCourses[i].link);
         var formattedOnlineSchool = HTMLonlineSchool.replace("%data%", education.onlineCourses[i].school);
         var formattedOnlineDate = HTMLonlineDates.replace("%data%", education.onlineCourses[i].date);
-        var formattedOnlineLink = HTMLonlineURL.replace("%data%", education.onlineCourses[i].link);
+        var formattedOnlineLink = HTMLonlineURL.replace("%data%", education.onlineCourses[i].link).replace("#", education.onlineCourses[i].link);
 
         $(".education-entry:last").append(formattedOnlineTitle + formattedOnlineSchool);
         $(".education-entry:last").append(formattedOnlineDate, formattedOnlineLink);
@@ -168,7 +168,7 @@ var work = {
             "title": "Managing Director",
             "location": "London, UK",
             "dates": "2009-2011",
-            "description": "- Coordination, planning and control of all administrative activities, financial resources and marketing strategies; /n - Execution of promotional campaigns, negotiating space at medias and developing and acquiring the material to be used; /n -Responsible for contacting customers at the pre and post selling, explaining the product and solving problems, aiming to acquire and retain the customers;"
+            "description": "- Coordination, planning and control of all administrative activities, financial resources and marketing strategies; \n - Execution of promotional campaigns, negotiating space at medias and developing and acquiring the material to be used; \n -Responsible for contacting customers at the pre and post selling, explaining the product and solving problems, aiming to acquire and retain the customers;"
         }
     ]
 }
@@ -290,9 +290,8 @@ $("#mapDiv").append(googleMap);
             var formattedNavbarProjects = HTMLnavbarEachItem.replace("%data%", navBar.Three).replace("#", "#projects");
             var formattedNavbarEducation = HTMLnavbarEachItem.replace("%data%", navBar.Four).replace("#", "#education");
             var formattedNavbarMap = HTMLnavbarEachItem.replace("%data%", navBar.Five).replace("#", "#mapDiv");
-          //  var formattedcontactMe = HTMLnavbarEachItem.replace("%data%", navBar.Six).replace("#", "#lets-connect");
 
-            var formattedNavbarDropdownLink = HTMLnavbarDropdownLink.replace("%data%", navBar.Six).replace("#", "#lets-connect");
+            var formattedNavbarDropdownLink = HTMLnavbarDropdownLink.replace("%data%", navBar.Six);
             var formattedNnavbarDropDownItemMobile = HTMLnavbarDropDownItem.replace("%data%", "mobile");
             var formattedNnavbarDropDownItemEmail = HTMLnavbarDropDownItem.replace("%data%", "email");
 
@@ -309,36 +308,25 @@ $("#mapDiv").append(googleMap);
 
 
 
-/*
-        <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown link
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-        </li>
-*/
-
-
-
-            // Adjusting NavBar Positioning
+            // Adjusting NavBar Positioning with Anchor link
 
 
             $(HTMLnavbarAnchor).insertBefore("#name, #workExperience, #projects, #education, #mapDiv");
 
-                  //  var formattedNavbarAnchor = HTMLnavbarAnchor.replace("#", navBar[i]);
-/*
-                    $("a.anchor").attr("id", function(){
-                        for (var i = 0; i < 5; i++){
-                            return  navBar[i];
-                    };
-*/
+            $(".nav-item").each(function(){
+               anchorId = $(this).find("a").text();
+               $(this).find("a").attr("id", anchorId);
+
+                if (anchorId == "Contact Me"){
+                return false;
+               }
+
+            });
+
+
 
     // Role
-        $("#header").children("span").first().addClass("role");
+        $("#header").children("span").first().css({"padding-left":"15px", "color":"#fff"});
 
     //<hr>
 
@@ -350,24 +338,25 @@ $("#mapDiv").append(googleMap);
 
         // Adding icons
 
-        var icon = {
-            "mobile": "fa fa-phone",
-            "email": "fa fa-envelope",
-            "github": "fa fa-github",
-            "twitter": "fa fa-twitter",
-            "location": "fa fa-globe"
+        var icons = {
+            "mobile" : "fa fa-phone",
+            "email" : "fa fa-envelope",
+            "github" : "fa fa-github",
+            "twitter" : "fa fa-twitter",
+            "location" : "fa fa-globe"
         };
 
-            icon.display = function(){
+            icons.display = function(){
 
 
                 $("ul#topContacts li.flex-item").prepend("<i aria-hidden=\"true\"></i>");
-                $("ul#topContacts li.flex-item i").each(function(){
-                     $(this).css("color", "#f5a623");
 
-                     for (var i = 0; i < icon.length; i++){
-                        $("ul#topContacts li.flex-item i").addClass(icon[i]);
-                     }
+                $("ul#topContacts li.flex-item").each(function(){
+
+                       addIcons = $(this).find("span.orange-text").text();
+
+                        $(this).find("i").addClass(icons[addIcons]).css("color", "#f5a623");
+
 
                 });
 
@@ -375,9 +364,8 @@ $("#mapDiv").append(googleMap);
 
 
           };
-            icon.display();
+            icons.display();
 
-//works // $("ul#topContacts li.flex-item").prepend("<span aria-hidden=\"true\"></span>").children().first().html('&#9743').css("color", "#f5a623");
 
 
     // Adjusting Padding and Spacing Elements
